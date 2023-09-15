@@ -1,10 +1,14 @@
 package com.example.bookstoreapp.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NonNull;
-
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "books")
@@ -29,11 +33,3 @@ public class Book {
 
     }
 }
-
-//id (Long, PK)
-//title (String, not null)
-//author (String, not null)
-//isbn (String, not null, unique)
-//price (BigDecimal, not null)
-//description (String)
-//coverImage (String)
