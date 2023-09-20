@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,8 +27,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> findAll() {
-        return bookRepository.findAll().stream()
+    public List<BookDto> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::mapToDto)
                 .collect(Collectors.toList());
     }
@@ -64,8 +65,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> searchBook(String search) {
-        return bookRepository.searchBook(search)
+    public List<BookDto> searchBook(String search, Pageable pageable) {
+        return bookRepository.searchBook(search, pageable)
                 .stream().map(bookMapper::mapToDto)
                 .collect(Collectors.toList());
     }
