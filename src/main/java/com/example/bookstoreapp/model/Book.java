@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
@@ -23,14 +22,10 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
     private String title;
-    @NonNull
     private String author;
     @Column(unique = true)
-    @NonNull
     private String isbn;
-    @NonNull
     private BigDecimal price;
     private String description;
     private String coverImage;
