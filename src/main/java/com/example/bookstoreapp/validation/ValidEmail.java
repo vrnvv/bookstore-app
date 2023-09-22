@@ -1,5 +1,6 @@
 package com.example.bookstoreapp.validation;
 
+import com.example.bookstoreapp.validation.validator.EmailValidator;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import java.lang.annotation.Documented;
