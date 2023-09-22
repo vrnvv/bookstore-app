@@ -2,9 +2,7 @@ package com.example.bookstoreapp.service.impl;
 
 import com.example.bookstoreapp.dto.request.UserLoginRequestDto;
 import com.example.bookstoreapp.dto.response.UserLoginResponseDto;
-import com.example.bookstoreapp.repository.UserRepository;
 import com.example.bookstoreapp.service.AuthenticationService;
-import com.example.bookstoreapp.service.UserService;
 import com.example.bookstoreapp.service.security.JwtUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Service;
 public class AuthenticationServiceImpl implements AuthenticationService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
-
 
     @Override
     public UserLoginResponseDto authenticate(UserLoginRequestDto request) {
