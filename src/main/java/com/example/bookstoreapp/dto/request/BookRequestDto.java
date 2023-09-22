@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 import lombok.Getter;
 
 @Getter
-public class CreateBookRequestDto {
+public class BookRequestDto {
     @NotNull
     private String title;
     @NotEmpty

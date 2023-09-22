@@ -1,7 +1,7 @@
 package com.example.bookstoreapp.service.mapper;
 
 import com.example.bookstoreapp.config.MapperConfig;
-import com.example.bookstoreapp.dto.request.CreateBookRequestDto;
+import com.example.bookstoreapp.dto.request.BookRequestDto;
 import com.example.bookstoreapp.dto.response.BookDto;
 import com.example.bookstoreapp.model.Book;
 import org.mapstruct.Mapper;
@@ -11,7 +11,7 @@ import org.mapstruct.Mapping;
 public interface BookMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "deleted", ignore = true)
-    Book mapToModel(CreateBookRequestDto createBookRequestDto);
+    Book mapToModel(BookRequestDto bookRequestDto);
 
     BookDto mapToDto(Book book);
 }

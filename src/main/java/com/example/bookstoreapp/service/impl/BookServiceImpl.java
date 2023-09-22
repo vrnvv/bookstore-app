@@ -1,6 +1,6 @@
 package com.example.bookstoreapp.service.impl;
 
-import com.example.bookstoreapp.dto.request.CreateBookRequestDto;
+import com.example.bookstoreapp.dto.request.BookRequestDto;
 import com.example.bookstoreapp.dto.response.BookDto;
 import com.example.bookstoreapp.model.Book;
 import com.example.bookstoreapp.repository.BookRepository;
@@ -21,7 +21,7 @@ public class BookServiceImpl implements BookService {
     private final BookMapper bookMapper;
 
     @Override
-    public BookDto save(CreateBookRequestDto bookDto) {
+    public BookDto save(BookRequestDto bookDto) {
         Book book = bookRepository.save(bookMapper.mapToModel(bookDto));
         return bookMapper.mapToDto(book);
     }
@@ -34,7 +34,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto update(Long id, CreateBookRequestDto updatedBookDto) {
+    public BookDto update(Long id, BookRequestDto updatedBookDto) {
         Optional<Book> optionalBook = bookRepository.findById(id);
         if (optionalBook.isPresent()) {
             Book bookToUpdate = optionalBook.get();

@@ -1,6 +1,6 @@
 package com.example.bookstoreapp.controller;
 
-import com.example.bookstoreapp.dto.request.CreateBookRequestDto;
+import com.example.bookstoreapp.dto.request.BookRequestDto;
 import com.example.bookstoreapp.dto.response.BookDto;
 import com.example.bookstoreapp.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,7 +41,7 @@ public class BookController {
 
     @PostMapping
     @Operation(summary = "Create books")
-    public ResponseEntity<BookDto> createBook(@RequestBody @Valid CreateBookRequestDto bookDto) {
+    public ResponseEntity<BookDto> createBook(@RequestBody @Valid BookRequestDto bookDto) {
         BookDto createdBook = bookService.save(bookDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
     }
@@ -61,7 +61,7 @@ public class BookController {
     @Operation(summary = "Update book", description = "Update book by id")
     public ResponseEntity<BookDto> updateBook(@PathVariable Long id,
                                               @RequestBody @Valid
-                                                      CreateBookRequestDto updatedBookDto) {
+                                                      BookRequestDto updatedBookDto) {
         BookDto book = bookService.update(id, updatedBookDto);
         if (book != null) {
             return ResponseEntity.ok(book);
