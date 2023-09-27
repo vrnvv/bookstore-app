@@ -1,82 +1,72 @@
 package com.example.bookstoreapp.service.impl;
 
-import com.example.bookstoreapp.dto.bookdto.BookDto;
-import com.example.bookstoreapp.dto.bookdto.BookRequestDto;
-import com.example.bookstoreapp.dto.bookdto.BookResponseDtoWithoutCategories;
-import com.example.bookstoreapp.model.entity.Book;
-import com.example.bookstoreapp.model.entity.Category;
+import com.example.bookstoreapp.dto.request.CreateBookRequestDto;
+import com.example.bookstoreapp.dto.response.BookDto;
+import com.example.bookstoreapp.model.Book;
 import com.example.bookstoreapp.repository.BookRepository;
-import com.example.bookstoreapp.repository.CategoryRepository;
-import com.example.bookstoreapp.service.AbstractService;
 import com.example.bookstoreapp.service.BookService;
 import com.example.bookstoreapp.service.mapper.BookMapper;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class BookServiceImpl extends AbstractService<Book,
-        BookRequestDto, BookDto,
-        BookMapper> implements BookService {
-    private final BookRepository repository;
-    private final BookMapper mapper;
-    private final CategoryRepository categoryRepository;
+public class BookServiceImpl implements BookService {
+    private final BookRepository bookRepository;
+    private final BookMapper bookMapper;
 
-    protected JpaRepository<Book, Long> getRepository() {
-        return repository;
-    }
-
-    protected BookMapper getMapper() {
-        return mapper;
+    @Override
+    public BookDto save(CreateBookRequestDto bookDto) {
+        Book book = bookRepository.save(bookMapper.mapToModel(bookDto));
+        return bookMapper.mapToDto(book);
     }
 
     @Override
-    public BookDto save(BookRequestDto requestDto) {
-        Category category = categoryRepository.findCategoryByName(
-                requestDto.getCategoryName())
-                .orElseThrow(() -> new RuntimeException(
-                        "Can't get book by name " + requestDto.getCategoryName()));
-        Book book = mapper.toEntity(requestDto);
-        book.setCategories(Set.of(category));
-        BookDto bookDto = mapper.toDto(repository.save(book));
-        mapper.setCategoryIds(bookDto, book);
-        return bookDto;
-    }
-
-    @Override
-    public BookDto update(Long id, BookRequestDto updatedBookDto) {
-        Category category = categoryRepository.findCategoryByName(
-                        updatedBookDto.getCategoryName())
-                .orElseThrow(() -> new RuntimeException(
-                        "Can't get book by name " + updatedBookDto.getCategoryName()));
-        Book book = mapper.toEntity(updatedBookDto);
-        book.setCategories(Set.of(category));
-        Optional<Book> bookFromDb = repository.findById(id);
-        return getMapper().toDto(bookFromDb.map(
-                b -> super.saveAndReturnSavedEntity(book, b))
-                .orElseThrow(
-                        () -> new RuntimeException(
-                                "Can't update: book by id " + id)));
-    }
-
-    @Override
-    public List<BookDto> searchBook(String search, Pageable pageable) {
-        return repository.searchBook(search, pageable)
-                .stream().map(mapper::toDto)
+    public List<BookDto> findAll() {
+        return bookRepository.findAll().stream()
+                .map(bookMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<BookResponseDtoWithoutCategories> findAllByCategoryId(Long categoryId) {
+    public BookDto update(Long id, CreateBookRequestDto updatedBookDto) {
+        Optional<Book> optionalBook = bookRepository.findById(id);
+        if (optionalBook.isPresent()) {
+            Book bookToUpdate = optionalBook.get();
+            bookToUpdate.setTitle(updatedBookDto.getTitle());
+            bookToUpdate.setAuthor(updatedBookDto.getAuthor());
+            bookToUpdate.setIsbn(updatedBookDto.getIsbn());
+            bookToUpdate.setPrice(updatedBookDto.getPrice());
+            bookToUpdate.setDescription(updatedBookDto.getDescription());
+            bookToUpdate.setCoverImage(updatedBookDto.getCoverImage());
 
-        return repository.findAllByCategory(categoryId)
-                .stream().map(mapper::toDtoWithoutCategories)
+            Book updatedBook = bookRepository.save(bookToUpdate);
+            return bookMapper.mapToDto(updatedBook);
+        } else {
+            throw new NoSuchElementException("Book not found with id: " + id);
+        }
+    }
+
+    @Override
+    public BookDto get(Long id) {
+        return bookMapper.mapToDto(
+                bookRepository.findById(id).orElseThrow(
+                        () -> new RuntimeException("Can't get book by id " + id)));
+    }
+
+    @Override
+    public void deleteBook(Long id) {
+        bookRepository.deleteById(id);
+    }
+
+    @Override
+    public List<BookDto> searchBook(String search) {
+        return bookRepository.searchBook(search)
+                .stream().map(bookMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 }

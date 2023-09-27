@@ -1,6 +1,5 @@
-package com.example.bookstoreapp.validation.validator;
+package com.example.bookstoreapp.validation;
 
-import com.example.bookstoreapp.validation.Isbn;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.util.regex.Pattern;
