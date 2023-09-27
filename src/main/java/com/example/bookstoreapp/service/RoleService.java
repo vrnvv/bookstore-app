@@ -1,6 +1,6 @@
 package com.example.bookstoreapp.service;
 
-import com.example.bookstoreapp.model.Role;
+import com.example.bookstoreapp.model.entity.Role;
 
 public interface RoleService {
     Role save(Role role);

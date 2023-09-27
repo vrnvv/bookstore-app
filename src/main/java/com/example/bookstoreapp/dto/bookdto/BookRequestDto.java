@@ -1,4 +1,4 @@
-package com.example.bookstoreapp.dto.request;
+package com.example.bookstoreapp.dto.bookdto;
 
 import com.example.bookstoreapp.validation.Isbn;
 import jakarta.validation.constraints.NotEmpty;
@@ -12,6 +12,8 @@ public class BookRequestDto {
     private String title;
     @NotEmpty
     private String author;
+    @NotEmpty
+    private String categoryName;
     @Isbn
     private String isbn;
     @NotNull

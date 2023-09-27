@@ -1,4 +1,4 @@
-package com.example.bookstoreapp.dto.response;
+package com.example.bookstoreapp.dto.userdto;
 
 import lombok.Data;
 

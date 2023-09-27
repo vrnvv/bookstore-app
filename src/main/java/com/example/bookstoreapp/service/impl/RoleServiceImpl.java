@@ -1,6 +1,6 @@
 package com.example.bookstoreapp.service.impl;
 
-import com.example.bookstoreapp.model.Role;
+import com.example.bookstoreapp.model.entity.Role;
 import com.example.bookstoreapp.repository.RoleRepository;
 import com.example.bookstoreapp.service.RoleService;
 import lombok.RequiredArgsConstructor;

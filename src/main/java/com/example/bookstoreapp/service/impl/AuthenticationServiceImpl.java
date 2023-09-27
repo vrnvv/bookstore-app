@@ -1,7 +1,7 @@
 package com.example.bookstoreapp.service.impl;
 
-import com.example.bookstoreapp.dto.request.UserLoginRequestDto;
-import com.example.bookstoreapp.dto.response.UserLoginResponseDto;
+import com.example.bookstoreapp.dto.userdto.UserLoginRequestDto;
+import com.example.bookstoreapp.dto.userdto.UserLoginResponseDto;
 import com.example.bookstoreapp.service.AuthenticationService;
 import com.example.bookstoreapp.service.security.JwtUtil;
 import lombok.RequiredArgsConstructor;

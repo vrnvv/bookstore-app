@@ -1,7 +1,7 @@
 package com.example.bookstoreapp.controller;
 
-import com.example.bookstoreapp.dto.request.BookRequestDto;
-import com.example.bookstoreapp.dto.response.BookDto;
+import com.example.bookstoreapp.dto.bookdto.BookDto;
+import com.example.bookstoreapp.dto.bookdto.BookRequestDto;
 import com.example.bookstoreapp.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "Book management", description = "Endpoints for managing products")
+@Tag(name = "Book management", description = "Endpoints for managing books")
 @RestController
 @RequestMapping("api/books")
 @RequiredArgsConstructor
@@ -78,7 +78,7 @@ public class BookController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete book", description = "Delete book by id")
     public void deleteBook(@PathVariable Long id) {
-        bookService.deleteBook(id);
+        bookService.delete(id);
     }
 
     @GetMapping("/search")
