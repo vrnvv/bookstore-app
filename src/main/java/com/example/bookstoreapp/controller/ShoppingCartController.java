@@ -6,9 +6,6 @@ import com.example.bookstoreapp.dto.shoppingcartdto.ShoppingCartResponseDto;
 import com.example.bookstoreapp.service.CartItemService;
 import com.example.bookstoreapp.service.ShoppingCartService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.List;
@@ -31,8 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/cart")
 @Tag(name = "ShoppingCart", description = "Managing shopping carts")
-@ApiResponse(content = {@Content(mediaType = "application/json",
-        schema = @Schema(implementation = ShoppingCartResponseDto.class))})
 public class ShoppingCartController {
     private final ShoppingCartService shoppingCartService;
     private final CartItemService cartItemService;
