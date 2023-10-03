@@ -16,6 +16,7 @@ import org.hibernate.annotations.Where;
 @Table(name = "categories")
 @EqualsAndHashCode(callSuper = false)
 public class Category extends AbstractBeanEntity {
+    @Column(unique = true)
     private String name;
     private String description;
     @Column(nullable = false)
