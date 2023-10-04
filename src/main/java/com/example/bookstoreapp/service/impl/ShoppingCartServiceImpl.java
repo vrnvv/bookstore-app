@@ -71,12 +71,10 @@ public class ShoppingCartServiceImpl extends AbstractService<ShoppingCart,
         return mapper.toDto(cartFromDb);
     }
 
-    private ShoppingCart findCartByUserId() {
+    public ShoppingCart findCartByUserId() {
         User user = userService.getUser();
-        return repository.findByUserId(
-                        user.getId())
-                .orElseThrow(() ->
-                        new EntityNotFoundException("Can't find shopping cart id: "
-                                + user.getId()));
+        return repository.findByUserId(user.getId()).orElseThrow(() ->
+                new EntityNotFoundException("Can't find shopping cart id: "
+                        + user.getId()));
     }
 }

@@ -3,6 +3,7 @@ package com.example.bookstoreapp.service.impl;
 import com.example.bookstoreapp.model.entity.Role;
 import com.example.bookstoreapp.repository.RoleRepository;
 import com.example.bookstoreapp.service.RoleService;
+import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role findByName(String roleName) {
         return roleRepository.findByRoleName(Role.RoleName.valueOf(roleName)).orElseThrow(
-                () -> new RuntimeException("Role with role name " + roleName + " not found"));
+                () -> new NoSuchElementException("Role with role name " + roleName + " not found"));
     }
 }

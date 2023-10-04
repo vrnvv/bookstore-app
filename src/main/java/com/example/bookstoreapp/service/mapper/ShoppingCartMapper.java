@@ -26,11 +26,4 @@ public interface ShoppingCartMapper extends BasicMapper<ShoppingCart,
     @Mapping(target = "cartItems", source = "cartItems")
     @Mapping(target = "userId", source = "user.id")
     ShoppingCartResponseDto toDto(ShoppingCart shoppingCart);
-
-    //    @AfterMapping
-    //    default void setUserId(@MappingTarget ShoppingCartResponseDto responseDto,
-    //                           ShoppingCart shoppingCart) {
-    //        Long userId = shoppingCart.getId();
-    //        responseDto.setUserId(userId);
-    //    }
 }

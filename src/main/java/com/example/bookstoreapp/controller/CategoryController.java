@@ -80,11 +80,7 @@ public class CategoryController {
             @PathVariable Long id,
             @RequestBody @Valid CategoryRequestDto categoryRequestDto) {
         CategoryResponseDto category = categoryService.update(id, categoryRequestDto);
-        if (category != null) {
-            return ResponseEntity.ok(category);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return category != null ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -94,5 +90,4 @@ public class CategoryController {
     public void deleteBook(@PathVariable Long id) {
         categoryService.delete(id);
     }
-
 }
