@@ -71,10 +71,16 @@ public class ShoppingCartServiceImpl extends AbstractService<ShoppingCart,
         return mapper.toDto(cartFromDb);
     }
 
+    @Override
     public ShoppingCart findCartByUserId() {
         User user = userService.getUser();
         return repository.findByUserId(user.getId()).orElseThrow(() ->
                 new EntityNotFoundException("Can't find shopping cart id: "
                         + user.getId()));
+    }
+
+    @Override
+    public ShoppingCart save(ShoppingCart shoppingCart) {
+        return repository.save(shoppingCart);
     }
 }
