@@ -89,6 +89,11 @@ public class OrderServiceImpl extends AbstractService<Order,
         repository.save(orderFromDb);
     }
 
+    @Override
+    public OrderItemResponseDto getOrderItem(Long orderId, Long itemId) {
+        return orderItemService.findOrderItemByOrderIdAndId(orderId, itemId);
+    }
+
     private Set<OrderItem> getOrderItemsFromCart(ShoppingCart shoppingCart) {
 
         return shoppingCart.getCartItems()
@@ -111,7 +116,7 @@ public class OrderServiceImpl extends AbstractService<Order,
                 .collect(Collectors.toSet());
     }
 
-    public void completePurchase(ShoppingCart shoppingCart) {
+    private void completePurchase(ShoppingCart shoppingCart) {
         shoppingCartService.delete(shoppingCart.getId());
         ShoppingCart shoppingCartNew = new ShoppingCart();
         shoppingCartNew.setUser(shoppingCart.getUser());
@@ -124,8 +129,4 @@ public class OrderServiceImpl extends AbstractService<Order,
                         + orderId));
     }
 
-    @Override
-    public OrderItemResponseDto getOrderItem(Long orderId, Long itemId) {
-        return orderItemService.findOrderItemByOrderIdAndId(orderId, itemId);
-    }
 }
