@@ -17,4 +17,6 @@ public interface ShoppingCartService extends
     ShoppingCartResponseDto update(Long id, CartItemRequestWithoutBookId cartItemRequestDto);
 
     ShoppingCart findCartByUserId();
+
+    ShoppingCart save(ShoppingCart shoppingCart);
 }
